@@ -26,7 +26,7 @@ function VoiceMessage({message}) {
   }
   const handlePlayAudio = ()=>{
     if(audioMessage){
-      console.log(waveForm.current);
+      // console.log(waveForm.current);
       waveForm.current.stop();
       waveForm.current.play();
       audioMessage.play();
@@ -62,8 +62,8 @@ function VoiceMessage({message}) {
         height:30,
         responsive :true,
       });
-      console.log(waveForm.current, "upper waala");
-      console.log(waveFormRef.current);
+      // console.log(waveForm.current, "upper waala");
+      // console.log(waveFormRef.current);
       waveForm.current.on("finish",()=>{
         setIsPlaying(false)
       })
@@ -79,7 +79,7 @@ function VoiceMessage({message}) {
     const audio = new Audio(audioURL);
     setAudioMessage(audio);
 
-    console.log(audio);
+    // console.log(audio);
     // console.log(waveForm.current.load(audioURL));
     
     // const xyz = waveForm.current.load(audioURL);

@@ -22,7 +22,7 @@ function ChatHeader() {
   }
   const handleVideoCall = ()=>{
     dispatch({type:reducerCases.SET_VIDEO_CALL,
-      voiceCall:{
+      videoCall:{
         ...currentChatUser,
         type:"out-going", 
         callType:"video",

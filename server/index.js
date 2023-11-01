@@ -60,6 +60,7 @@ io.on("connection",(socket)=>{
     });
     socket.on("outgoing-video-call",(data)=>{
         const sendUserSocket = onlineUsers.get(data.to);
+        console.log(data);
         if(sendUserSocket){
             socket.to(sendUserSocket).emit("incoming-video-call", {
                 from:data.from, 

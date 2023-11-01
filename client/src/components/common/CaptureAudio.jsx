@@ -50,7 +50,7 @@ function CaptureAudio({hide}) {
       responsive :true,
     });
     setWaveForm(waveSurfer);
-    console.log(waveForm);
+    // console.log(waveForm);
     waveSurfer.on("finish",()=>{
       setIsPlaying(false)
     })
@@ -151,7 +151,7 @@ function CaptureAudio({hide}) {
           to:currentChatUser.id
         }
       });
-      console.log(response.status);
+      // console.log(response.status);
       if(response.status === 200){
         socket.current.emit("send-msg",{
           to:currentChatUser?.id,

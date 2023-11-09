@@ -26,7 +26,6 @@ function VoiceMessage({message}) {
   }
   const handlePlayAudio = ()=>{
     if(audioMessage){
-      console.log(waveForm.current);
       waveForm.current.stop();
       waveForm.current.play();
       audioMessage.play();
@@ -38,9 +37,9 @@ function VoiceMessage({message}) {
       const updatePlaybackTime = ()=>{
         setCurrentPlaybackTime(audioMessage.currentTime)
       };
-      audioMessage.addEventListener("timeUpdate",updatePlaybackTime);
+      audioMessage.addEventListener("timeupdate",updatePlaybackTime);
       return ()=>{
-        audioMessage.removeEventListener("timeUpdate",updatePlaybackTime);
+        audioMessage.removeEventListener("timeupdate",updatePlaybackTime);
       }
     }
   },[audioMessage]);
@@ -51,44 +50,47 @@ function VoiceMessage({message}) {
     const seconds = Math.floor(time%60);
     return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   }
-  useEffect(()=>{
-    if(waveForm.current === null){
-       waveForm.current = WaveSurfer.create({
-        container:waveFormRef.current,
-        waveColor:"#ccc",
-        progressColor:"#4a9eff",
+
+  useEffect(() => {
+    try {
+      waveForm.current = WaveSurfer.create({
+        container: waveFormRef.current,
+        waveColor: "#ccc",
+        progressColor: "#4a9eff",
         cursorColor: "#7ae3c3",
         barWidth: 2,
-        height:30,
-        responsive :true,
+        height: 30,
+        responsive: true,
       });
-      console.log(waveForm.current, "upper waala");
-      console.log(waveFormRef.current);
       waveForm.current.on("finish",()=>{
-        setIsPlaying(false)
+        setIsPlaying(false);
       })
+    } catch (error) {
+      console.error("Failed to create WaveSurfer instance:", error);
     }
-      return ()=>{
+  
+    return () => {
+      if (waveForm.current) {
         waveForm.current.destroy();
       }
-  },[])
+    };
+  }, []);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const audioURL = `${Host}/${message.message}`;
     const audio = new Audio(audioURL);
     setAudioMessage(audio);
-
-    console.log(audio);
-    // console.log(waveForm.current.load(audioURL));
-    
-    // const xyz = waveForm.current.load(audioURL);
-    // console.log(typeof(xyz));
-    // waveForm.current.load(audioURL);
-    // waveForm.current.on("ready",()=>{
-    //   setTotalDuration(waveForm.current.getDuration());
-    // })
-  },[message.message])
+    if (waveForm.current) {
+      try {
+        waveForm.current.load(audioURL);
+        waveForm.current.on("ready", () => {
+          setTotalDuration(waveForm.current.getDuration());
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [message.message]);
 
 
   return (<div className={`flex items-center gap-5 text-white  px-4 pr-2 py-4 text-sm rounded-md ${message.senderId === currentChatUser.id ? "bg-incoming-background" : " bg-outgoing-background"}`}>

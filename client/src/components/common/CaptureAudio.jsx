@@ -50,7 +50,6 @@ function CaptureAudio({hide}) {
       responsive :true,
     });
     setWaveForm(waveSurfer);
-    console.log(waveForm);
     waveSurfer.on("finish",()=>{
       setIsPlaying(false)
     })
@@ -118,9 +117,9 @@ function CaptureAudio({hide}) {
       const updatePlaybackTime = ()=>{
         setCurrentPlaybackTime(recordedAudio.currentTime)
       };
-      recordedAudio.addEventListener("timeUpdate",updatePlaybackTime);
+      recordedAudio.addEventListener("timeupdate",updatePlaybackTime);
       return ()=>{
-        recordedAudio.removeEventListener("timeUpdate",updatePlaybackTime);
+        recordedAudio.removeEventListener("timeupdate",updatePlaybackTime);
       }
     }
   },[recordedAudio]);
@@ -151,7 +150,6 @@ function CaptureAudio({hide}) {
           to:currentChatUser.id
         }
       });
-      console.log(response.status);
       if(response.status === 200){
         socket.current.emit("send-msg",{
           to:currentChatUser?.id,
@@ -166,7 +164,7 @@ function CaptureAudio({hide}) {
           fromSelf: true
         })
       }
-      
+      hide();
     } catch (error) {
       console.log(error);
     }

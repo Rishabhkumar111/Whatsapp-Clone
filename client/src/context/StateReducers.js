@@ -73,6 +73,11 @@ const reducer = (state=initialState, action)=>{
                 contactSearch:action.contactSearch,
                 filteredContacts,
             }
+        case reducerCases.SET_EXIT_CHAT:
+            return {
+                ...state,
+                currentChatUser:undefined
+            }
         default:
             return state;
     }

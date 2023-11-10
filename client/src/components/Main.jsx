@@ -42,6 +42,7 @@ function Main() {
     }
   });
 
+
   useEffect(()=>{
     if(userInfo){
       socket.current = io(Host);
@@ -59,6 +60,12 @@ function Main() {
             ...data.message
           },
         });
+      });
+      socket.current.on("online-users", ({ onlineUsers }) =>{
+        dispatch({
+          type: reducerCases.SET_ONLINE_USERS,
+          onlineUsers,
+        })
       });
       setSocketEvent(true);
     }

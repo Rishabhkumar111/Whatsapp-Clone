@@ -9,7 +9,7 @@ import { reducerCases } from "@/context/constants";
 import ContextMenu from "../common/ContextMenu";
 
 function ChatHeader() {
-  const [{currentChatUser}, dispatch] = useStateProvider();
+  const [{currentChatUser, onlineUsers}, dispatch] = useStateProvider();
 
   const [contextMenuCordinates, setContextMenuCordinates] = useState({
     x: 0, y: 0,
@@ -59,12 +59,16 @@ function ChatHeader() {
         <Avatar type="sm" image={currentChatUser?.profilePicture} />
         <div className="flex flex-col">
           <span className=" text-primary-strong">{currentChatUser?.name}</span>
-          <span className=" text-secondary text-sm">online/offline</span>
+          <span className=" text-secondary text-sm">
+            {
+              onlineUsers.includes(currentChatUser.id) ? "online" : "offline"
+            }
+          </span>
         </div>
       </div>
       <div className="flex gap-6">
-        <MdCall className=" text-panel-header-icon cursor-pointer text-xl"/>
-        <IoVideocam className=" text-panel-header-icon cursor-pointer text-xl"/>
+        <MdCall className=" text-panel-header-icon cursor-pointer text-xl" onClick={()=>{alert("Video call and Audio call will be implemented soon.")}}/>
+        <IoVideocam className=" text-panel-header-icon cursor-pointer text-xl" onClick={()=>{alert("Video call and Audio call will be implemented soon.")}}/>
         <BiSearchAlt2 className=" text-panel-header-icon cursor-pointer text-xl" onClick={()=>dispatch({type:reducerCases.SET_MESSAGE_SEARCH})}/>
         <BsThreeDotsVertical className=" text-panel-header-icon cursor-pointer text-xl" 
           onClick={(e)=>showContextMenu(e)} id="context-opener"/>

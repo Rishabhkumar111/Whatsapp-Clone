@@ -51,11 +51,19 @@ Keep track of your messages' read status, allowing you to know when your message
 
 ### Tech Stack
 **Next.js:** A React framework for building server-rendered applications.
+
 **Firebase Authentication:** Secure and easy authentication using Google Authentication.
+
 **Prisma:** Modern database access for Node.js, ensuring efficient database management.
-**Wavesurfer.js: **A customizable audio waveform visualization library for web applications.
+
+**Wavesurfer.js:** A customizable audio waveform visualization library for web applications.
+
 **Tailwind CSS:** A utility-first CSS framework for building modern designs.
+
 **Socket.io:** Real-time bidirectional event-based communication for enabling real-time messaging.
-**Axios: **A promise-based HTTP client for making requests to the server.
-**Crypto: **Utilized for securing sensitive information within the application.
-**Express and Node.js: **Providing a robust backend for handling server-side operations.
+
+**Axios:** A promise-based HTTP client for making requests to the server.
+
+**Crypto:** Utilized for securing sensitive information within the application.
+
+**Express and Node.js:** Providing a robust backend for handling server-side operations.
